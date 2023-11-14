@@ -1,26 +1,33 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
+# name of the workflow
 name: python test
-
+# when to run workflow
 on:
+  # when push event occurs
   push:
+    # only when master branch push occurs
     branches: [ "master" ]
-
+# workflow composition
 jobs:
+  # define build
   build:
-
+    # what environment to run the work
     runs-on: ubuntu-latest
+    # set environment variable to use
     env:
+      # FIB_INPUT for test.py
       FIB_INPUT: 10
-
+    # define steps of work
     steps:
+    # checkout git repository
     - uses: actions/checkout@v3
+    # install dependencies that are needed in current work
     - name: Install dependencies
+    # shell commands to run
       run: |
         python -m pip install --upgrade pip
         pip install ruff pytest
-    
+    # use pytest to execute test.py
     - name: Test with pytest
+    # shell commands to run
       run: |
         pytest test.py
